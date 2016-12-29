@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour {
 
-    public GameObject parentPlatform;
+    private GameObject parentPlatform;
     public bool spriteFacingLeft = true;
 
     private Bounds platformBounds;
@@ -12,20 +12,32 @@ public class MonsterController : MonoBehaviour {
     private SpriteRenderer rend;
 
     public float movementSpeed = 1.0f;
-    private int direction = 1;
+    public int direction = 1;
 
-	// Use this for initialization
-	void Start () {
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.transform.tag == "Ground") {
+            parentPlatform = collision.gameObject;
+            platformBounds = parentPlatform.GetComponent<BoxCollider2D>().bounds;
+        } else if (collision.transform.tag == "Wall") {
+            direction *= -1;
+            setDirection();
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
         rigid = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
-        platformBounds = parentPlatform.GetComponent<BoxCollider2D>().bounds;
+        
         setDirection();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        checkTurn();
-        rigid.velocity = new Vector2(movementSpeed * direction, 0);
+        if (parentPlatform != null) {
+            checkTurn();
+            rigid.velocity = new Vector2(movementSpeed * direction, rigid.velocity.y);
+        }
     }
 
     private void setDirection() {
