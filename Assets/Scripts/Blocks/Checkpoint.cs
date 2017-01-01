@@ -18,6 +18,9 @@ public class Checkpoint : MonoBehaviour {
     // Use this for initialization
     void Start () {
         anim = GetComponent<Animator>();
+        if (gameManager == null) {
+            gameManager = GameObject.Find("Game Manager");
+        }
 	}
 	
 	// Update is called once per frame

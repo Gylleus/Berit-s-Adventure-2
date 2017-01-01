@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     private bool inAir = false;
     private float yMomentum;
 
+    private int coinsPickedUp = 0;
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.transform.tag == "Ground") {
@@ -86,5 +87,9 @@ public class PlayerController : MonoBehaviour {
         }
         rigid.velocity = speed;
         anim.SetBool("running", moving);
+    }
+
+    public void pickUpCoin() {
+        coinsPickedUp++;
     }
 }

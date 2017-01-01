@@ -8,14 +8,19 @@ public class MovingPlatform : MonoBehaviour {
 
     public float verticalSpeed, horizontalSpeed;
 
+    public float yUp, yDown, xRight, xLeft;
     public float maxY, minY, maxX, minX;
 
-    private int horizontalDirection = 1;
-    private int verticalDirection = 1;
+    public int horizontalDirection = 1;
+    public int verticalDirection = 1;
 
 	// Use this for initialization
 	void Start () {
         rigid = GetComponent<Rigidbody2D>();
+        maxX = transform.position.x + xRight;
+        minX = transform.position.x - xLeft;
+        maxY = transform.position.y + yUp;
+        minY = transform.position.y - yDown;
 	}
 	
 	// Update is called once per frame
@@ -36,4 +41,7 @@ public class MovingPlatform : MonoBehaviour {
         }
         rigid.AddForce(new Vector2(horizontalSpeed * horizontalDirection, verticalSpeed * verticalDirection));
     }
+
+    
+
 }

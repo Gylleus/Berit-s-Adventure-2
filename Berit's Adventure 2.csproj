@@ -75,12 +75,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BackgroundMovement.cs" />
     <Compile Include="Assets\Scripts\Blocks\Checkpoint.cs" />
+    <Compile Include="Assets\Scripts\Blocks\Coin.cs" />
     <Compile Include="Assets\Scripts\Blocks\Door.cs" />
+    <Compile Include="Assets\Scripts\Blocks\Elevator.cs" />
     <Compile Include="Assets\Scripts\Blocks\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\Blocks\RotatingBlock.cs" />
+    <Compile Include="Assets\Scripts\Enemies\BreatherController.cs" />
     <Compile Include="Assets\Scripts\Enemies\MonsterController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\MusicPlayer.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
