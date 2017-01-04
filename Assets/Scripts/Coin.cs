@@ -10,10 +10,16 @@ public class Coin : MonoBehaviour {
     private int rotationDirection = 1;
     private float initRot;
 
+    private bool hidden = false;
+
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.transform.name == "Player") {
+        if (other.transform.name == "Player" && !hidden) {
             other.GetComponent<PlayerController>().pickUpCoin();
-            Destroy(gameObject);
+            hidden = true;
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
+            GetComponent<SpriteRenderer>().enabled = false;
+            Destroy(gameObject,audio.clip.length);
         }
     }
 

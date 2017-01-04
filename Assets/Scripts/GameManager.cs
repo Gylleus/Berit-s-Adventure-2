@@ -16,11 +16,15 @@ public class GameManager : MonoBehaviour {
     public delegate void PlayerDeath();
     public static event PlayerDeath onPlayerDeath;
 
+    private int deathAmount = 0;
+    private int coinAmount = 0;
+
     // Use this for initialization
     void Start () {
         levelStartPosition = player.transform.position;
         checkPointPosition = levelStartPosition;
         backToCheckpoint();
+        coinAmount = GameObject.FindGameObjectsWithTag("Coin").Length;
     }
 	
 	// Update is called once per frame
@@ -38,6 +42,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void playerDeath() {
+        deathAmount++;
         player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         if (onPlayerDeath != null) {
             onPlayerDeath();
@@ -47,5 +52,13 @@ public class GameManager : MonoBehaviour {
 
     public void nextLevel() {
         SceneManager.LoadScene(nextScene);
+    }
+
+    public int playerDeaths() {
+        return deathAmount;
+    }
+
+    public int coinsInLevel() {
+        return coinAmount;
     }
 }

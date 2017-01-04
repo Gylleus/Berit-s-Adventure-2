@@ -34,6 +34,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision) {
+
+    }
+
     private void OnCollisionExit2D(Collision2D collision) {
         if (collision.transform.tag == "Ground" || collision.transform.tag == "Wall") {
             inAir = true;
@@ -91,5 +95,9 @@ public class PlayerController : MonoBehaviour {
 
     public void pickUpCoin() {
         coinsPickedUp++;
+    }
+
+    public int playerCoins() {
+        return coinsPickedUp;
     }
 }
