@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.transform.tag == "Ground") {
-            inAir = false;
-            jumpsLeft = jumpsInAir;
             currentPlatformRigid = collision.gameObject.GetComponent<Rigidbody2D>();
         }
         else if (collision.transform.tag == "Enemy") {
@@ -35,7 +33,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnCollisionStay2D(Collision2D collision) {
-
+        if (collision.transform.tag == "Ground") {
+            if (currentPlatformRigid == null || currentPlatformRigid.velocity.y == rigid.velocity.y) {
+                inAir = false;
+                jumpsLeft = jumpsInAir;
+            }
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision) {

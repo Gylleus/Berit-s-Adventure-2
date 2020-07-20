@@ -20,7 +20,7 @@ public class BreatherController : MonoBehaviour {
 	void Start () {
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
-        fireObject = transform.FindChild("Fire").gameObject;
+        fireObject = transform.Find("Fire").gameObject;
         fireObject.SetActive(false);
         horizontalMoving = GetComponent<MovingPlatform>().horizontalSpeed > 0;
 

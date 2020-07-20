@@ -12,7 +12,9 @@ public class MonsterController : MonoBehaviour {
     private SpriteRenderer rend;
 
     public float movementSpeed = 1.0f;
+    private int startDirection;
     public int direction = 1;
+    private float xColliderSize;
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.transform.tag == "Ground") {
@@ -28,7 +30,9 @@ public class MonsterController : MonoBehaviour {
     void Start () {
         rigid = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
-        
+        Bounds colliderBounds = GetComponent<Collider2D>().bounds;
+        xColliderSize = colliderBounds.max.x - colliderBounds.min.x;
+        startDirection = direction;
         setDirection();
 	}
 	
@@ -40,7 +44,7 @@ public class MonsterController : MonoBehaviour {
         }
     }
 
-    private void setDirection() {
+    public void setDirection() {
         rend.flipX = direction == -1;
         if (spriteFacingLeft) {
             rend.flipX = !rend.flipX;
@@ -48,12 +52,16 @@ public class MonsterController : MonoBehaviour {
     }
 
     private void checkTurn() {
-        if (transform.position.x + rigid.velocity.x * Time.deltaTime > platformBounds.max.x && direction == 1) {
+        if (transform.position.x + rigid.velocity.x * Time.deltaTime + xColliderSize * 0.6f > platformBounds.max.x && direction == 1) {
             direction = -1;
             setDirection();
-        } else if (transform.position.x + rigid.velocity.x * Time.deltaTime < platformBounds.min.x && direction == -1) {
+        } else if (transform.position.x + rigid.velocity.x * Time.deltaTime - xColliderSize * 0.6f < platformBounds.min.x && direction == -1) {
             direction = 1;
             setDirection();
         }
+    }
+
+    public int getStartDirection() {
+        return startDirection;
     }
 }

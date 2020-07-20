@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class RotatingBlock : MonoBehaviour {
 
+    public enum Direction {left,right};
+
     public float rotationSpeed = 1.0f;
     public bool childLocked;
+
+    public Direction rotationDir;
 
     public GameObject rotatingChild;
 
@@ -17,7 +21,11 @@ public class RotatingBlock : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         Vector3 rot = transform.eulerAngles;
-        rot.z += rotationSpeed;
+        if (rotationDir == Direction.right) {
+            rot.z -= rotationSpeed;
+        } else {
+            rot.z += rotationSpeed;
+        }
         transform.eulerAngles = rot;
         if (childLocked && rotatingChild != null) {
             rot.z = -rot.z;
